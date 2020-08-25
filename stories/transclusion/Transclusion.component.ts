@@ -9,11 +9,12 @@ import { apiKey } from '../Settings';
   `
 })
 export class MenuComponent {
-  @Input() public show: boolean = true;
+  @Input() public show: boolean = false;
   @ContentChild(TemplateRef, { static: false }) public templateRef!: TemplateRef<any>;
 }
 
 @Component({
+  selector: 'transclusion',
   styles: [`
     .container {
       border: 1px solid blue;
@@ -27,18 +28,24 @@ export class MenuComponent {
 
     <container [show]="show" [ngClass]="'container'">
       <ng-template #templateRef>
-        <editor [apiKey]="apiKey" [(ngModel)]="editorValue"></editor>
+        <ng-content></ng-content>
       </ng-template>
     </container>
   <div>
   `
 })
 export class TransclusionComponent {
-  public apiKey = apiKey;
-  public editorValue = '';
-  public show = true;
-
+  public show = false;
   public handleToggle() {
     this.show = !this.show;
   }
+}
+
+@Component({
+  selector: 'editor-wrapper',
+  template: `<editor [apiKey]="apiKey" [(ngModel)]="editorValue"></editor>`
+})
+export class EditorWraper {
+  public apiKey = apiKey;
+  public editorValue = '';
 }

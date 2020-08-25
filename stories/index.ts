@@ -8,7 +8,7 @@ import { ViewQueryComponent } from './viewquery/Viewquery.component';
 import { MaterialTabs } from './materialtabs/MaterialTabs.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TransclusionComponent, MenuComponent } from './transclusion/Transclusion.component';
+import { TransclusionComponent, MenuComponent, EditorWraper } from './transclusion/Transclusion.component';
 import { apiKey, sampleContent } from './Settings';
 
 import '@angular/material/prebuilt-themes/indigo-pink.css';
@@ -94,8 +94,11 @@ storiesOf('Editor', module)
     'Transclusion',
     () => ({
       component: TransclusionComponent,
+      template: `<transclusion>
+        <editor-wrapper></editor-wrapper>
+      </transclusion>`,
       moduleMetadata: {
-        declarations: [MenuComponent]
+        declarations: [TransclusionComponent, MenuComponent, EditorWraper]
       }
     }),
     {
